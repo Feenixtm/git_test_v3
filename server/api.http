@@ -1,2 +1,11 @@
 ###
-GET http://localhost:8080/
+GET http://localhost:5050/
+
+###
+POST http://localhost:5050/sign-up
+Content-Type: application/json
+
+{
+    "username": "testUser",
+    "password": "testPassword"
+}
