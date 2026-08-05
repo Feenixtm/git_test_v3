@@ -31,6 +31,15 @@ app.get("/all-users", async (req, res) => {
     }
 });
 
+app.get("/all-blogs", async(req, res) => {
+    try {
+        const allBlogs = await prisma.post.findMany();
+        res.json(allBlogs);
+    } catch (error) {
+        res.status(400).json({ error: `Database retrieval process failed...`})
+    }
+})
+
 app.post("/sign-up", (req, res) => {
     const { username, password } = req.body;
 

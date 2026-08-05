@@ -5,6 +5,9 @@ GET http://localhost:5050/
 GET http://localhost:5050/all-users/
 
 ###
+GET http://localhost:5050/all-blogs/
+
+###
 POST http://localhost:5050/sign-up
 Content-Type: application/json
 
