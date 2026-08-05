@@ -19,6 +19,25 @@ app.get("/",  (req, res) => {
     })
 });
 
+app.get("/specific-blog", async (req, res) => {
+    try {
+        const specificId = 2;
+        const specificUser = await prisma.post.findUnique({
+            where: {
+                id: specificId
+            }
+        });
+
+        if (!specificUser) {
+            res.json({ message: `Error. User with id of ${ specificId } does not exist...`})
+        }
+
+        res.json(specificUser);
+    } catch (error) {
+        res.status(400).json({ error: `Database retrieval process failed...`})
+    }
+})
+
 // Need to turn function to async when using prisma
 // TESTING
 app.get("/all-users", async (req, res) => {
@@ -38,6 +57,28 @@ app.get("/all-blogs", async(req, res) => {
     } catch (error) {
         res.status(400).json({ error: `Database retrieval process failed...`})
     }
+})
+
+app.get("/blogs/:id", async (req, res) => {
+    try {
+        // REQ.PARAMS.ID IS ALWAYS A STRING
+        const postId = req.params.id;
+
+        const post = await prisma.post.findUnique({
+            where: {
+                id: Number(postId)
+            }
+        })
+    
+        if (!post) {
+            return res.status(404).json({ error: "Could not retrieve post. Post doesn't exist"});
+        }
+
+        res.json(post);
+        console.log(post);
+    } catch (error) {
+        res.status(400).json({ error: `Post retrieval process failed...`})
+    }    
 })
 
 app.post("/sign-up", (req, res) => {

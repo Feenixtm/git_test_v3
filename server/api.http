@@ -2,6 +2,12 @@
 GET http://localhost:5050/
 
 ###
+GET http://localhost:5050/blogs/2
+
+###
+GET http://localhost:5050/specific-blog
+
+###
 GET http://localhost:5050/all-users/
 
 ###
