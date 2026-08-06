@@ -90,6 +90,27 @@ app.post("/sign-up", (req, res) => {
     })
 })
 
+app.post("/login", async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        const user = await prisma.user.findUnique({
+            where: {
+                username: username,
+                password: password
+            }
+        });
+
+        if (!user) {
+            return res.json({ error: "Invalid Login" })
+        }
+
+        console.log(user);
+        return res.json(user);
+    } catch (error) {
+        console.error("Fatal error occurred:" + error);
+    }
+})
+
 const PORT = 5050;
 
 app.listen(PORT, () => {
